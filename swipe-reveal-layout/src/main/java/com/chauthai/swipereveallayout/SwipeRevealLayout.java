@@ -126,6 +126,8 @@ public class SwipeRevealLayout extends ViewGroup {
 
     private int mOnLayoutCount = 0;
 
+    private boolean mTouchable = true;
+
     interface DragStateChangeListener {
         void onDragStateChanged(int state);
     }
@@ -182,7 +184,7 @@ public class SwipeRevealLayout extends ViewGroup {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-        if (mLockDrag) return false;
+        if (!mTouchable) return false;
         mGestureDetector.onTouchEvent(event);
         mDragHelper.processTouchEvent(event);
         return true;
@@ -190,7 +192,7 @@ public class SwipeRevealLayout extends ViewGroup {
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
-        if (mLockDrag) return false;
+        if (!mTouchable) return false;
         mDragHelper.processTouchEvent(ev);
         mGestureDetector.onTouchEvent(ev);
 
@@ -542,6 +544,10 @@ public class SwipeRevealLayout extends ViewGroup {
      */
     public boolean isDragLocked() {
         return mLockDrag;
+    }
+
+    public void setTouchable(boolean mTouchable) {
+        this.mTouchable = mTouchable;
     }
 
     /**
