@@ -182,6 +182,7 @@ public class SwipeRevealLayout extends ViewGroup {
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
+        if (mLockDrag) return false;
         mGestureDetector.onTouchEvent(event);
         mDragHelper.processTouchEvent(event);
         return true;
@@ -189,6 +190,7 @@ public class SwipeRevealLayout extends ViewGroup {
 
     @Override
     public boolean onInterceptTouchEvent(MotionEvent ev) {
+        if (mLockDrag) return false;
         mDragHelper.processTouchEvent(ev);
         mGestureDetector.onTouchEvent(ev);
 
